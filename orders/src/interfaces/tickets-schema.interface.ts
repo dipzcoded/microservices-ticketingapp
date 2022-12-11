@@ -4,6 +4,7 @@ import { Model, Document } from "mongoose";
 export interface TicketsSchemaDocumentInterface extends Document {
   title: string;
   price: number;
+  isReserved(): Promise<boolean>;
 }
 
 // An interface that describes the properties that are required to create a new user
