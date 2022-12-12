@@ -5,8 +5,6 @@ import { allOrders } from "../controllers";
 
 const router: Router = expres.Router();
 
-router.use(jwtPayloadExtract);
-router.use(checkAuth);
-router.route("/api/orders").get(allOrders);
+router.route("/api/orders").get(jwtPayloadExtract, checkAuth, allOrders);
 
 export default router;

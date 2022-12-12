@@ -6,6 +6,8 @@ import { deleteOrderById } from "../controllers";
 
 const router: Router = expres.Router();
 
-router.route("/api/orders/:id").delete(deleteOrderById);
+router
+  .route("/api/orders/:id")
+  .delete(jwtPayloadExtract, checkAuth, deleteOrderById);
 
 export default router;
