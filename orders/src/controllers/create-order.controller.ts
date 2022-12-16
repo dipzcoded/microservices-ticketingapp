@@ -6,6 +6,8 @@ import {
 } from "@realmtickets/common";
 import { Request, Response } from "express";
 import { Orders, Tickets } from "../models";
+import { natsClient } from "../nats-wrapper.utils";
+import { OrderCreatedPublisher } from "../events";
 
 const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 export const createOrder = async (req: Request, res: Response) => {
@@ -38,6 +40,18 @@ export const createOrder = async (req: Request, res: Response) => {
   });
 
   await order.save();
-  //   Publish an event an order was created
+  //   Publish an order created event
+
+  new OrderCreatedPublisher(natsClient.client).publish({
+    id: order.id,
+    status: order.status,
+    userId: order.userId,
+    expiresAt: order.expiresAt.toISOString(),
+    ticket: {
+      id: ticket.id,
+      price: ticket.price,
+    },
+  });
+
   res.status(StatusCodeEnum.CREATED).json({ order });
 };

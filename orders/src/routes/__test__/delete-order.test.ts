@@ -2,6 +2,7 @@ import { OrderStatusEnum } from "@realmtickets/common";
 import request from "supertest";
 import { app } from "../../app";
 import { Tickets } from "../../models";
+import { natsClient } from "../../nats-wrapper.utils";
 
 it("marks an order as cancelled", async () => {
   const ticket = await Tickets.build({ title: "concert", price: 20 });
@@ -26,6 +27,6 @@ it("marks an order as cancelled", async () => {
     .send({})
     .expect(200);
   expect(fetchOrder.order.status).toEqual(OrderStatusEnum.Cancelled);
-});
 
-it.todo("emist a event when an order is cancelled");
+  expect(natsClient.client.publish).toHaveBeenCalled();
+});

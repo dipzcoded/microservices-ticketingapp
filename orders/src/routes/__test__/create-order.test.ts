@@ -3,6 +3,7 @@ import { app } from "../../app";
 import mongoose from "mongoose";
 import { Orders, Tickets } from "../../models";
 import { OrderStatusEnum } from "@realmtickets/common";
+import { natsClient } from "../../nats-wrapper.utils";
 it("returns an error if the ticket does not exist", async () => {
   const ticketId = new mongoose.Types.ObjectId();
   await request(app)
@@ -52,6 +53,6 @@ it("reserves a ticket", async () => {
       ticketId: ticket.id,
     })
     .expect(201);
-});
 
-it.todo("emits an order created event");
+  expect(natsClient.client.publish).toHaveBeenCalled();
+});

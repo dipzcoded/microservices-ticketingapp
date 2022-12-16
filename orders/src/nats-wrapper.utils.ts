@@ -2,6 +2,7 @@ import nats, { Stan } from "node-nats-streaming";
 class NatsWrapper {
   private _client?: Stan;
 
+  // getter method for _client variable
   get client() {
     if (!this._client) {
       throw new Error("Cannot access NATS client before connecting");
