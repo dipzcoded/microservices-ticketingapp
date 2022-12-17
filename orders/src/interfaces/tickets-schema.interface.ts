@@ -9,6 +9,7 @@ export interface TicketsSchemaDocumentInterface extends Document {
 
 // An interface that describes the properties that are required to create a new user
 export interface TicketsSchemaInterface {
+  id: string;
   title: TicketsSchemaDocumentInterface["title"];
   price: TicketsSchemaDocumentInterface["price"];
 }

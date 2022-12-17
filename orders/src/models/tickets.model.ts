@@ -31,7 +31,12 @@ const ticketSchema: Schema = new mongoose.Schema(
 
 // adding method to the model
 ticketSchema.statics.build = (attr: TicketsSchemaInterface) => {
-  return new Tickets(attr);
+
+  return new Tickets({
+    _id : attr.id,
+    title : attr.title,
+    price: attr.price
+  });
 };
 
 // adding method to document

@@ -4,6 +4,7 @@ import {
   TicketsSchemaDocumentInterface,
   TicketsSchemaInterface,
 } from "../interfaces";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 const ticketsSchema: Schema = new Schema(
   {
@@ -32,6 +33,9 @@ const ticketsSchema: Schema = new Schema(
     },
   }
 );
+
+ticketsSchema.set("versionKey", "version");
+ticketsSchema.plugin(updateIfCurrentPlugin);
 
 ticketsSchema.statics.build = (attrs: TicketsSchemaInterface) => {
   return new Tickets(attrs);
