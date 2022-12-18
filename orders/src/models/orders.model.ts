@@ -1,4 +1,5 @@
 import { OrderStatusEnum } from "@realmtickets/common";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import mongoose, { Schema } from "mongoose";
 import {
   OrdersModelInterface,
@@ -35,6 +36,9 @@ const orderSchema: Schema = new mongoose.Schema(
     },
   }
 );
+
+orderSchema.set("versionKey", "version");
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrdersSchemaInterface) => {
   return new Orders(attrs);

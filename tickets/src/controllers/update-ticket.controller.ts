@@ -32,6 +32,7 @@ export const updateTicketById = async (req: Request, res: Response) => {
     title: updatedTicket.title,
     price: updatedTicket.price,
     userId: updatedTicket.userId,
+    version: updatedTicket.version,
   });
 
   return res.status(StatusCodeEnum.OK).json({ ticket });

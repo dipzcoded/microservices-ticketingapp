@@ -11,7 +11,7 @@ export class TicketCreatedListener extends Listener<TicketCreatedEventInterface>
   subject: SubjectsEvent.TickectCreated = SubjectsEvent.TickectCreated;
   queueGroupName: string = orderServiceQueueGroupName;
   async onMessage(
-    data: { id: string; title: string; price: number; userId: string },
+    data: { id: string; title: string; price: number; userId: string,version:number },
     msg: Message
   ): Promise<void> {
     const { price, title, id } = data;

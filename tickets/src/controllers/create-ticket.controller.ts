@@ -20,6 +20,7 @@ export const createTicket = async (req: Request, res: Response) => {
     title: newUserTicket.title,
     price: newUserTicket.price,
     userId: newUserTicket.userId,
+    version: newUserTicket.version,
   });
   res.status(StatusCodeEnum.CREATED).json({ ticket: newUserTicket });
 };

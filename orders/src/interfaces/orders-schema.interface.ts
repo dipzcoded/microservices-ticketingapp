@@ -8,6 +8,7 @@ export interface OrdersSchemaDocumentInterface extends Document {
   status: OrderStatusEnum;
   expiresAt: Date;
   ticket: TicketsSchemaDocumentInterface;
+  version: number;
 }
 
 // An interface that describes the properties that are required to create a new user

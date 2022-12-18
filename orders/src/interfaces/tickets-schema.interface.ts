@@ -5,6 +5,7 @@ export interface TicketsSchemaDocumentInterface extends Document {
   title: string;
   price: number;
   isReserved(): Promise<boolean>;
+  version: number;
 }
 
 // An interface that describes the properties that are required to create a new user
@@ -18,4 +19,8 @@ export interface TicketsSchemaInterface {
 export interface TicketsModelInterface
   extends Model<TicketsSchemaDocumentInterface> {
   build(attrs: TicketsSchemaInterface): TicketsSchemaDocumentInterface;
+  findByEvent(event: {
+    id: string;
+    version: number;
+  }): Promise<TicketsSchemaDocumentInterface | null>;
 }

@@ -29,6 +29,7 @@ export const deleteOrderById = async (req: Request, res: Response) => {
 
   new OrderCancelledPublisher(natsClient.client).publish({
     id: order.id,
+    version: order.version,
     ticket: {
       id: order.ticket.id,
     },

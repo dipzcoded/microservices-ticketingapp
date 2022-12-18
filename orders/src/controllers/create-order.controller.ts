@@ -32,7 +32,7 @@ export const createOrder = async (req: Request, res: Response) => {
   expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
 
   // Build the order save it to the database
-  const order = await Orders.build({
+  const order = Orders.build({
     userId: req.user!.user.id,
     status: OrderStatusEnum.Created,
     expiresAt: expiration,
@@ -47,6 +47,7 @@ export const createOrder = async (req: Request, res: Response) => {
     status: order.status,
     userId: order.userId,
     expiresAt: order.expiresAt.toISOString(),
+    version: order.version,
     ticket: {
       id: ticket.id,
       price: ticket.price,

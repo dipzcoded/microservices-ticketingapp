@@ -1,4 +1,5 @@
 import { OrderStatusEnum } from "@realmtickets/common";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import mongoose, { Schema } from "mongoose";
 import {
   TicketsModelInterface,
@@ -29,14 +30,20 @@ const ticketSchema: Schema = new mongoose.Schema(
   }
 );
 
+ticketSchema.set("versionKey", "version");
+ticketSchema.plugin(updateIfCurrentPlugin);
+
 // adding method to the model
 ticketSchema.statics.build = (attr: TicketsSchemaInterface) => {
-
   return new Tickets({
-    _id : attr.id,
-    title : attr.title,
-    price: attr.price
+    _id: attr.id,
+    title: attr.title,
+    price: attr.price,
   });
+};
+
+ticketSchema.statics.findByEvent = (data: { id: string; version: number }) => {
+  return Tickets.findOne({ _id: data.id, version: data.version - 1 });
 };
 
 // adding method to document
