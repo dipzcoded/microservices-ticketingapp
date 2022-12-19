@@ -3,6 +3,7 @@ import { app } from "./app";
 import { dbInit } from "./db";
 
 import { natsClient } from "./nats-wrapper.utils";
+import { OrderCreatedListener } from "./events";
 
 const PORT = 3400;
 
@@ -41,6 +42,8 @@ const appInit = async () => {
 
     process.on("SIGINT", () => stan.close());
     process.on("SIGTERM", () => stan.close());
+
+    new OrderCreatedListener(stan).listen();
 
     await dbInit();
   } catch (error) {

@@ -1,11 +1,16 @@
 import { OrderStatusEnum } from "@realmtickets/common";
+import mongoose from "mongoose";
 import request from "supertest";
 import { app } from "../../app";
 import { Tickets } from "../../models";
 import { natsClient } from "../../nats-wrapper.utils";
 
 it("marks an order as cancelled", async () => {
-  const ticket = await Tickets.build({ title: "concert", price: 20 });
+  const ticket = await Tickets.build({
+    title: "concert",
+    price: 20,
+    id: new mongoose.Types.ObjectId().toHexString(),
+  });
   await ticket.save();
 
   const user = global.getAuthCookie();

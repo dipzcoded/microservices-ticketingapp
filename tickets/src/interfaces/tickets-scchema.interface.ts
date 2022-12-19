@@ -6,6 +6,7 @@ export interface TicketsSchemaDocumentInterface extends Document {
   price: number;
   userId: string;
   version: number;
+  orderId?: string;
 }
 
 // An interface that describes the properties that are required to create a new user
