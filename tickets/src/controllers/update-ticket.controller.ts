@@ -16,6 +16,10 @@ export const updateTicketById = async (req: Request, res: Response) => {
     throw new NotFoundError("ticket not found");
   }
 
+  if (ticket.orderId) {
+    throw new ForbiddenRequestError("ticket is already been reserved");
+  }
+
   if (ticket.userId !== req.user!.user.id) {
     throw new ForbiddenRequestError(
       "cant have access to ticket you didnt create"
