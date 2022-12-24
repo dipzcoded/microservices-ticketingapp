@@ -35,6 +35,15 @@ build:
           - src: "src/**/*.ts"
             dest: .
 
+    - image: dipzcoded/ticketing-expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+
     - image: dipzcoded/client-next
       context: client
       docker:

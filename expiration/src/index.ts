@@ -1,5 +1,5 @@
 import { natsClient } from "./nats-wrapper.utils";
-
+import { OrderCreatedListener } from "./events";
 
 const appInit = async () => {
   if (!process.env.NATS_CLIENT_ID) {
@@ -28,6 +28,8 @@ const appInit = async () => {
 
     process.on("SIGINT", () => stan.close());
     process.on("SIGTERM", () => stan.close());
+
+    new OrderCreatedListener(stan).listen();
   } catch (error) {
     console.error(error);
   }
