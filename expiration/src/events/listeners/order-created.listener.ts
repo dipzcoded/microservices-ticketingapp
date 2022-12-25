@@ -23,9 +23,16 @@ export class OrderCreatedListener extends Listener<OrderCreatedEventInterface> {
     msg: Message
   ): Promise<void> {
     // creating a job
-    await expirationQueue.add({
-      orderId: data.id,
-    });
+    const delay = new Date(data.expiresAt).getTime() - new Date().getTime();
+    console.log("waiting dis many milliseconds to process the job", delay);
+    await expirationQueue.add(
+      {
+        orderId: data.id,
+      },
+      {
+        delay,
+      }
+    );
 
     msg.ack();
   }

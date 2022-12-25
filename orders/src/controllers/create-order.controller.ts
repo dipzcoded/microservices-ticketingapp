@@ -9,7 +9,7 @@ import { Orders, Tickets } from "../models";
 import { natsClient } from "../nats-wrapper.utils";
 import { OrderCreatedPublisher } from "../events";
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+const EXPIRATION_WINDOW_SECONDS = 1 * 60;
 export const createOrder = async (req: Request, res: Response) => {
   const { ticketId } = req.body;
   // find the ticket the user try to order in the database

@@ -3,7 +3,11 @@ import { app } from "./app";
 import { dbInit } from "./db";
 
 import { natsClient } from "./nats-wrapper.utils";
-import { TicketCreatedListener, TicketUpdatedListener } from "./events";
+import {
+  TicketCreatedListener,
+  TicketUpdatedListener,
+  ExpirationCompleteListener,
+} from "./events";
 
 const PORT = 3600;
 
@@ -45,6 +49,7 @@ const appInit = async () => {
 
     new TicketCreatedListener(stan).listen();
     new TicketUpdatedListener(stan).listen();
+    new ExpirationCompleteListener(stan).listen();
 
     await dbInit();
   } catch (error) {
