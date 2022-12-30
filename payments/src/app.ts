@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import "express-async-errors";
 import cookieSession from "cookie-session";
-
+import { createPaymentOrderChargesRoute } from "./routes";
 // error handler
 import { errorHandler } from "@realmtickets/common";
 import { NotFoundError } from "@realmtickets/common";
@@ -15,7 +15,7 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
-
+app.use(createPaymentOrderChargesRoute);
 app.all("*", async () => {
   throw new NotFoundError("route not found!");
 });

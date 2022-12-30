@@ -6,12 +6,15 @@ import jwt from "jsonwebtoken";
 
 // declaring a global variable
 declare global {
-  var getAuthCookie: () => string[];
+  var getAuthCookie: (userId?: string) => string[];
 }
 
 let mongo: any;
 
 jest.mock("../nats-wrapper.utils");
+
+process.env.STRIPE_KEY =
+  "sk_test_51MKThNGvHk0BlcqzF5fO0UW0C1rc2L9m7H8760OXAWQziUeL6X8sTvTO6P5wUXbafV0QDsGGTpsxmKxKmklIkpEG00DH7pA2n5";
 
 beforeAll(async () => {
   jest.setTimeout(30 * 1000);
@@ -38,12 +41,12 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.getAuthCookie = () => {
+global.getAuthCookie = (userId?: string) => {
   //  Build a JWT payload. {id,username,email}
 
   const payload = {
     user: {
-      id: new mongoose.Types.ObjectId().toHexString(),
+      id: userId ? userId : new mongoose.Types.ObjectId().toHexString(),
       username: "dipzcoded",
       email: "dipoakerele@gmail.com",
     },

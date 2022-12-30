@@ -26,6 +26,13 @@ spec:
               value: "http://nats-srv:4222"
             - name: NATS_CLUSTER_ID
               value: ticketing
+
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secrret
+                  key: STRIPE_KEY
+
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -42,5 +49,5 @@ spec:
   ports:
     - name: ticketing-payments
       protocol: TCP
-      port: 3400
-      targetPort: 3400
+      port: 3800
+      targetPort: 3800

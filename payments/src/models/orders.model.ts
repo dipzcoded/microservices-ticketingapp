@@ -9,11 +9,6 @@ import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 const orderSchema: Schema = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      required: true,
-    },
-
     status: {
       type: String,
       required: true,
